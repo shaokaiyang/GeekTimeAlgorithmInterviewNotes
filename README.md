@@ -72,12 +72,93 @@
 
 # 正文
 <h2 id="1">第1讲 合格程序员第一步：算法与数据结构</h2>
+
+每天的工作计划使用优先级队列的方式进行计划；  
+加密货币中有大量的算法和数据结构，区块使用LinkedList，区块内使用二叉树来表示交易信息；  
+编程是内功的修炼；  
+算法与数据结构有趣且实用；  
+
 <h2 id="2">第2讲 如何事半功倍的学习算法与数据结构</h2>
+
+推荐书籍：《异类不一样的成功启示录》切碎知识点；刻意练习；获得反馈  
+明确题目意识；找到所有可能的解法；编码实现；进行测试；  
+
 <h2 id="3">第3讲 如何计算算法复杂度</h2>
+
+时间复杂度：常数，对数，线性，平方，立方，指数，阶乘  
+斐波那契数列的时间复杂度为O（2^n）  
+Master Theorem  二分查找O(logn),二叉树遍历O(n),二维矩阵查找O(n)  
+
 <h2 id="4">第4讲 如何通过LeetCode来进行算法题目练习</h2>
+
+坚持刻意练习；练习缺陷弱点地方；不舒服，不爽和枯燥；  
+
 <h2 id="5">第5讲 理论讲解：数组&链表</h2>
+
+数组：内存中连续的存储区域，根据索引O(1)查找，插入和删除操作O（n）  
+链表：很多的插入和删除操作，不知道有多少个元素，查找是O(n)，单链表和双链表  
+
 <h2 id="6">第6讲 面试题：翻转一个单链表&判断链表是否有环</h2>
+
+题目列表:  
+206翻转一个链表  
+```python
+def reverseList(self, head):
+    cur, prev = head, None
+    while cur:
+        # 一次性赋值，先计算好右边一次性赋值
+        cur.next, prev, cur = prev, cur, cur.next
+    return prev
+```
+24 对一个链表进行两两翻转
+```python
+def swapPairs(self, head)
+    pre, pre.next = self, head
+    while pre.next and pre.next.next:
+        a = pre.next
+        b = a.next
+        pre.next, b.next, a.next = b, a, b.next
+        pre = a
+    return self.next
+```
+141 判断链表是否有环  
+```
+def hasCycle(self, head)
+    fast = slow = head
+    while slow and fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow if fast:
+            return Ture
+    return False
+```
 <h2 id="7">第7讲 理论讲解：堆栈&队列</h2>
+
+栈：先进后出；查找O(n),插入删除O（1）  
+队列：先进先出；查找O(n),插入删除O（1）  
+20 判断括号是否合法  栈空O(n)
+```
+def isValid(self, s):
+    stach = []
+    paren_map = {')':'(',']':'[','}':'{'}
+    for c in s:
+        if c not in paren_map:
+            stack.append(c)
+            //新进入一个符号栈是空的或者与栈顶元素不匹配则false
+        elif not stack or paren_map[c] != stack.pop():
+            return False
+    return not stack
+    
+public boolean isValid(String s){
+    int length;
+    do{
+        length = s.length();
+        s = s.replace("()", "").replace("[]","").replace("{}","");
+    }while(length != s.length());
+    return s.length() == 0;
+}
+```
+
 <h2 id="8">第8讲 面试题：判断括号字符串是否有效</h2>
 <h2 id="9">第9讲 面试题：用队列实现栈&用栈实现队列</h2>
 <h2 id="10">第10讲 理论讲解：优先队列</h2>
