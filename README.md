@@ -160,16 +160,183 @@ public boolean isValid(String s){
 ```
 
 <h2 id="8">第8讲 面试题：判断括号字符串是否有效</h2>
+
+1.左括号直接压进栈；   
+2.右括号如果栈不为空与栈顶匹配则出栈；  
+3.栈空则说明合法  
+
 <h2 id="9">第9讲 面试题：用队列实现栈&用栈实现队列</h2>
+
+栈实现队列：使用两个栈，输入栈进行数据输入，输出栈输出数据；  
+进行输出时判断输出栈是否有元素，如果没有就将输入栈全部放入输出栈；  
+队列实现栈：两个队列，一个入队列一个临时队列，在进行数据输出时将除了队列底部最后一个数据留下外，
+其他数据放入临时队列，数据读取完之后再将临时队列的元素放入原队列。  
+
 <h2 id="10">第10讲 理论讲解：优先队列</h2>
+
+优先队列的实现方式：
+1. heap（二叉树，多项式堆，斐波那契堆）  
+2. 二叉搜索树
+二叉堆（最小最大的数据在最上面）合并O（n），删除O（logn）  
+
 <h2 id="11">第11讲 面试题：返回数据流中的第K大元素</h2>
+
+703 实时返回第K大元素
+1.每次保存K个最大值，每次进行更新，需要排序O(nklogn)  
+2.维护一个size为k的小顶堆  O（nlogk）  
+```python 
+class KthLargest{
+final PriorityQueue<Integer> q;
+final int k ;
+public KthLargest(int k , int[] a){
+    this.k =k;
+    q = new PriorityQueue<>(k);
+    for(int n : a){
+        add(n);
+    }
+    public int add(int k ){
+        if(q.size() < k){
+            q.offer(n);
+        }else if(q.peek < n){
+            q.poll();
+            q.offer(n);
+        }
+        return q.peek;
+    }
+}
+```
+
 <h2 id="12">第12讲 面试题：返回滑动窗口中的最大值</h2>
+
+239 滑动窗口最大值   
+1. 维护一个大顶堆，每次最大值就是堆顶元素；O(nlogk)   
+2. 双端队列， k个元素进入队列，进入队列时如果前面数都比该数小就出队列，保证区间
+最左端是最大值；  
+
+```python
+def maxSlidingWindow1(self, nums, k){
+    if not nums : return []
+    window, res = [],[]
+    for i, x in enumerate(nums):
+        if i>= k and window[0] <= i-k:
+            window.pop(0)
+        while window and nums[window[-1]] <= x:
+            window.pop()
+        window.append(i)
+        if(i >= k-1):
+            res.append(nums[window[0]])
+    return res
+}
+```
+
 <h2 id="13">第13讲 理论讲解：哈希表</h2>
+
+1.哈希表，哈希函数，哈希冲突（拉链法）  
+2.map表示映射关系【HashMap vs TreeMap】  
+3.set里面的元素不重复<哈希表或者二叉树>HashSet(O(1)) vs TreeSet(二叉树（O（logn））)  
+4.list可以重复
+
 <h2 id="14">第14讲 面试题：有效的字母异位词</h2>
+
+242 有效的字母异位词 “rat”  "art"  
+1. sort 然后进行比较  O（nlogn）  
+2. map 计数{letter:count}  O(n)  
+
+```
+def isAnagram3(self, s, t)
+    return sorted(s)  == sorted(t)
+    
+def isAnagram2(self, s, t)
+    dic1, dic2 = {}, {}
+    for item in s :
+        dic1[item] = dic1.get(item, 0) +1;
+    for item in s :
+            dic2[item] = dic2.get(item, 0) +1;
+    return dic1 == dic2
+    
+def isAnagram1(self, s, t)
+    dic1, dic2 = [0]*26, [0]*26
+    for item in s :
+        dic1[ord(item) - ord('a')] += 1 
+        
+    for item in s :
+            dic2[ord(item) - ord('a')] += 1
+    return dic1 == dic2    
+```
+
 <h2 id="15">第15讲 面试题：两数之和</h2>
+
+1.暴力搜索  O（n^2）  
+2.构建hashmap，可以一次性先放进去也可以走着放着。  
+
 <h2 id="16">第16讲 面试题：三数之和</h2>
+
+15 三数和
+18. 四数和
+1. 暴力循环 O（n^3）  
+2. SET集合，枚举a,b，在set里面查找（-a-b）  
+3. 先排序再找，枚举a,在剩下的数组中维护两个指针（left,right），
+不断从两边向中间夹, sum(a,b,c)>0 right--;sum(a,b,c)<0 left++;  
+
+```
+def thressSum(self, nums):
+    if len(nums) < 3:
+        return []
+    nums.sort()
+    res = set()
+    for i,v in enumerate(nums[:2]):
+        if i>=1 and v == nums[i-1]:
+            continue
+        d = {}
+        for x in nums[i+1:]:
+            if x not in d:
+                d[-v-x] = 1
+            else:
+                res.add((v, -v-x, x))
+    return map(list, res)
+```
+
 <h2 id="17">第17讲 理论讲解：树&二叉树&二叉搜索树</h2>
+
+1.树：特殊的链表  
+2. 二叉树：只有两个孩子  
+3. 二叉搜索树：左子树<根，根> 右子树  O（logn）
+
 <h2 id="18">第18讲 面试题：验证二叉搜索树</h2>
+
+98 验证二叉搜索树  
+1. 中序遍历  左子树  根  右子树，是升序的 O（n）  
+2. 递归方式，max<-node.left;min<-node.right;max<root;min>root; O(N)  
+
+```
+def isValidBST(self, root):
+    inorder = self.inorder(root)
+    return inorder == list(sorted(set(inorder)))
+def inorder (self, root):
+    if root is none:
+        return []
+    return self.inorder(root.left) + [root.val] + self.inorder(root.right)  
+    
+def isValidBST(self, root):
+    self.prev = None
+    return self.helper(root)
+def helper(self,root):
+    if root is None:
+        return True
+    if not self.helper(root.left):
+        return False
+    if self.prev and self.prev.val >= root.val
+        return False
+     self.prev = root
+     return self.helper(root.right)
+     
+public boolean isValid(TreeNode root, Integer min , Integer max){
+    if(root ==  null) return ture;
+    if(min  != null && root.val <= min ) return false;
+    if(max != null && root.val >- max)  return false;
+    return isValid(root.left,min,root.val) && isValid(root.right,root.val,max);
+```
+
 <h2 id="19">第19讲 面试题：二叉树&二叉搜索树的最近公共祖先</h2>
 <h2 id="20">第20讲 理论讲解：二叉树遍历</h2>
 <h2 id="21">第21讲 理论讲解：递归&分治</h2>
